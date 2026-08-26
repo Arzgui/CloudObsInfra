@@ -19,8 +19,8 @@ et détection d'anomalies (ex. brute force sur l'authentification).
 ## État d'avancement
 
 - [x] Route `/login` fonctionnelle (données de test en dur)
-- [ ] Cas d'échec de connexion
-- [ ] Dockerisation
+- [x] Cas d'échec de connexion
+- [x] Dockerisation
 - [ ] Provisioning infra via Terraform
 - [ ] Déploiement automatique (GitHub Actions)
 - [ ] Logs vers OpenSearch
