@@ -1,0 +1,28 @@
+services:
+  opensearch:
+    image: opensearchproject/opensearch:2.19.0
+    environment:
+      - discovery.type=single-node
+      - DISABLE_SECURITY_PLUGIN=true
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=
+    ports:
+      - "9200:9200"
+
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: app.login
+
+  fluent-bit:
+    image: fluent/fluent-bit:3.1
+    volumes:
+      - ./fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - opensearch
+      - app
