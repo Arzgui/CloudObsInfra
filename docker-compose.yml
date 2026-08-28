@@ -12,17 +12,15 @@ services:
     build: .
     ports:
       - "8000:8000"
-    logging:
-      driver: fluentd
-      options:
-        fluentd-address: localhost:24224
-        tag: app.login
+    depends_on:
+      - opensearch
 
   fluent-bit:
     image: fluent/fluent-bit:3.1
     volumes:
       - ./fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
       - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
     depends_on:
       - opensearch
       - app

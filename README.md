@@ -23,5 +23,5 @@ et détection d'anomalies (ex. brute force sur l'authentification).
 - [x] Dockerisation
 - [x] Provisioning infra via Terraform
 - [x] Déploiement automatique (GitHub Actions)
-- [ ] Logs vers OpenSearch
+- [x] Logs vers OpenSearch
 - [ ] Détection d'anomalies (monitor/trigger)
