@@ -1,0 +1,42 @@
+{
+  "type": "monitor",
+  "name": "brute-force-detection",
+  "enabled": true,
+  "schedule": {
+    "period": {
+      "interval": 1,
+      "unit": "MINUTES"
+    }
+  },
+  "inputs": [
+    {
+      "search": {
+        "indices": ["login-events"],
+        "query": {
+          "size": 0,
+          "query": {
+            "bool": {
+              "filter": [
+                { "term": { "success": false } },
+                { "range": { "@timestamp": { "gte": "now-5m" } } }
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "triggers": [
+    {
+      "name": "brute-force-alert",
+      "severity": "1",
+      "condition": {
+        "script": {
+          "source": "ctx.results[0].hits.total.value > 3",
+          "lang": "painless"
+        }
+      },
+      "actions": []
+    }
+  ]
+}
